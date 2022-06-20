@@ -11,6 +11,7 @@ using DevInSales.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using DevInSales.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using DevInSales.Services;
 
 namespace DevInSales.Controllers
 {
@@ -19,18 +20,21 @@ namespace DevInSales.Controllers
     public class AddressController : ControllerBase
     {
         private readonly SqlContext _context;
+        private readonly IAddressService _addressService;
 
-        public AddressController(SqlContext context)
+        public AddressController(SqlContext context, IAddressService addressService)
         {
             _context = context;
+            _addressService = addressService;
         }
 
+      
         // GET: api/Addresse
         [HttpGet]
         [Authorize(Roles = "Administrador,Gerente,Usuario")]
         public async Task<ActionResult<IEnumerable<Address>>> GetAddress()
         {
-            return await _context.Address.ToListAsync();
+            return await _addressService.listarEnderecosAsync();
 
         }
 
@@ -42,7 +46,7 @@ namespace DevInSales.Controllers
 
         public async Task<ActionResult<Address>> GetAddress(int id)
         {
-            var address = await _context.Address.FindAsync(id);
+            var address = await _addressService.encontrarEnderecosAsync(id);
 
             if (address == null)
             {

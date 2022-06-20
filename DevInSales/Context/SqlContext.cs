@@ -7,6 +7,11 @@ namespace DevInSales.Context;
 public class SqlContext : DbContext
 {
     public SqlContext(DbContextOptions<SqlContext> options) : base(options) { }
+
+    public SqlContext(DbContextOptionsBuilder<SqlContext> options)
+    {
+    }
+
     public DbSet<User> User { get; set; }
     public DbSet<Profile> Profile { get; set; }
     public DbSet<Product> Product { get; set; }
