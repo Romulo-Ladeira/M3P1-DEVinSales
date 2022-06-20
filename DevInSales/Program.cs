@@ -4,6 +4,7 @@ using DevInSales.Context;
 
 
 using DevInSales.Seeds;
+using DevInSales.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+ConfigureServices(builder.Services);
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -67,3 +69,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void ConfigureServices(IServiceCollection services)
+{
+    services.AddTransient<IAddressService, AddressService>();
+}

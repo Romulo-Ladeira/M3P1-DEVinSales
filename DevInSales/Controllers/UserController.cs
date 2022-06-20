@@ -6,6 +6,7 @@ using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using DevInSales.Services;
 
 namespace DevInSales.Controllers
 {
@@ -14,11 +15,14 @@ namespace DevInSales.Controllers
     public class UserController : ControllerBase
     {
         private readonly SqlContext _context;
+       
+
 
         public UserController(SqlContext context)
         {
             _context = context;
         }
+       
 
         /// <summary>
         /// Consulta lista de usuários.
